@@ -35,10 +35,11 @@ const MovieList = () => {
   useEffect(() => {
     window.addEventListener("resize", () => {
       const screen = document.body.scrollWidth;
-      console.log(screen);
       setWidthScreen(screen);
     });
-  });
+  }, []);
+
+  
 
   //   Slick setting
   const settings = {
@@ -52,7 +53,7 @@ const MovieList = () => {
   };
 
   return (
-    <StyleMovieList id="lichChieu"> 
+    <StyleMovieList id="lichChieu">
       <Tabs
         defaultActiveKey="phim Đang Chiếu"
         id="uncontrolled-tab-example"
@@ -64,9 +65,7 @@ const MovieList = () => {
             <Slider
               {...settings}
               rows={widthScreen <= 640 ? 6 : 2}
-              slidesPerRow={
-                widthScreen <= 640 ? 1 : widthScreen <= 1000 ? 3 : 4
-              }
+              slidesPerRow={widthScreen <= 640 ? 1 : widthScreen <= 1000 ? 3 : 4}
             >
               {movies.map((item) => {
                 if (item.dangChieu) {
