@@ -13,7 +13,7 @@ const MovieList = () => {
   const [movies, setMovies] = useState([]);
   const [isOpen, setOpen] = useState(false); // state kiểm soát video modal
   const [urlMovie, seturlMovie] = useState(""); // state kiểm soát link trailer
-  const [widthScreen, setWidthScreen] = useState(1600);
+  const [widthScreen, setWidthScreen] = useState(null);
   const navigate = useNavigate();
   // hàm mở modal
   const handleOpen = (urlMovie) => {
@@ -34,12 +34,13 @@ const MovieList = () => {
 
   useEffect(() => {
     window.addEventListener("resize", () => {
-      const screen = document.body.scrollWidth;
+      const screen = document.body.clientWidth;
       setWidthScreen(screen);
     });
-  }, []);
-
-  
+  }, [widthScreen]);
+  const width = document.body.clientWidth;
+  console.log(width);
+  console.log(widthScreen);
 
   //   Slick setting
   const settings = {
@@ -64,8 +65,14 @@ const MovieList = () => {
           <div>
             <Slider
               {...settings}
-              rows={widthScreen <= 640 ? 6 : 2}
-              slidesPerRow={widthScreen <= 640 ? 1 : widthScreen <= 1000 ? 3 : 4}
+              rows={(widthScreen || width) <= 640 ? 6 : 2}
+              slidesPerRow={
+                (widthScreen || width) <= 640
+                  ? 1
+                  : (widthScreen || width) <= 1000
+                  ? 3
+                  : 4
+              }
             >
               {movies.map((item) => {
                 if (item.dangChieu) {
@@ -92,8 +99,8 @@ const MovieList = () => {
         <Tab eventKey="him Sắp Chiếu" title="Phim Sắp Chiếu">
           <Slider
             {...settings}
-            rows={widthScreen <= 640 ? 6 : 2}
-            slidesPerRow={widthScreen <= 640 ? 1 : widthScreen <= 1000 ? 3 : 4}
+            rows={(widthScreen || width) <= 640 ? 6 : 2}
+            slidesPerRow={(widthScreen || width) <= 640 ? 1 : (widthScreen || width) <= 1000 ? 3 : 4}
           >
             {movies.map((item) => {
               if (item.sapChieu) {
