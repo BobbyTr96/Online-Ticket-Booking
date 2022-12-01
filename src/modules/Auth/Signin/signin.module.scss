@@ -1,0 +1,25 @@
+.modalHeader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px !important;
+
+    .headIcon {
+        color: var(--color-red);
+        font-size: 40px;
+    }
+
+    span {
+        color: var(--color-red);
+    }
+}
+
+.modalFooter {
+    justify-content: space-between !important;
+}
+
+.textLink {
+    text-decoration: underline;
+    color: #42a5f5;
+    font-size: 15px;
+}
